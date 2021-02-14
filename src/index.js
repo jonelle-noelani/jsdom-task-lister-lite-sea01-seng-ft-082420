@@ -1,37 +1,30 @@
-const newTaskDescription = document.getElementById("new-task-description");
-const newTask = document.createElement('li')
-
 const createNewTask = event => { 
   event.preventDefault(); 
+  const newTaskDescription = document.getElementById("new-task-description");
+  const newTask = document.createElement('li');
+
   newTask.innerText = newTaskDescription.value;
-  addNewTask(newTask);
-}
+  createButton(newTask);
+  document.getElementById("tasks").appendChild(newTask);
 
-const addNewTask = task => {
-  document.getElementById("tasks").appendChild(task);
-  createButton();
-}
+  event.target.reset();
+};
 
-const createButton = btn => {
-    btn = document.createElement('button');
+const createButton = task => {
+   const btn = document.createElement('button');
+
     btn.innerText = "X";
-    btn.id = "tasks"; //?? why set an id
-    newTask.appendChild(btn)
+    btn.id = "tasks"; 
+
+    task.appendChild(btn)
+    btn.addEventListener('click',  (e) => deleteTask(e))
 }
 
-const deleteTask = e => {
-  document.getElementById("tasks").removeChild('li');
+const deleteTask = (e) => {
+  const theList = document.getElementById("tasks");
+  let selectedTask = e.target.parentElement
+  theList.removeChild(selectedTask)
 }
 
 document.querySelector('#create-task-form').addEventListener("submit"
 , (e) => createNewTask(e))
-
-// btn.addEventListener('click',  (e) => deleteTask(e))
-
-// document.querySelector('#tasks').addEventListener('click',  (e) => deleteTask(e))
-
-// const removeTask = event => {
-//   event.preventDefault();
-//   btn.addEventListener("click", deleteTask);
-//   li.appendChild(btn);
-// }
